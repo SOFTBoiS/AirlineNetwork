@@ -14,13 +14,16 @@ namespace MiniProject4_Airline_Networks
 
 
             // Make Graph based on routes
-            var airportText = TextParser.ReadText("airports.txt");
-            var airports = TextParser.ParseAirports(airportText);
-            IGraph graph = new AdjacencyGraph(routes.Count, airports);
+            IGraph graph = new AdjacencyGraph(TextParser.AirportsFromRoutes.Count, TextParser.MakeAirportDict());
             
-            foreach (var route in routes)
+            // foreach (var route in routes)
+            // {
+            //     graph.AddEdge(route);
+            // }
+
+            for (var i = 0; i < 30; i++)
             {
-                graph.AddEdge(route);
+                graph.AddEdge(routes[i]);
             }
             
             Console.WriteLine(graph);
