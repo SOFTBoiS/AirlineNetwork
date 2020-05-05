@@ -15,6 +15,6 @@ namespace MiniProject4_Airline_Networks
         AddEdge(w, v);
         }
         
-        IEnumerable<int> Adjacents(int v); // list all adjacent vertices to vertice v
+        IEnumerable<AdjacencyGraph.EdgeNode> Adjacents(int v); // list all adjacent vertices to vertice v
     }
 }

@@ -20,7 +20,7 @@ namespace MiniProject4_Airline_Networks
             _airports = airports;
         }
 
-        private class EdgeNode
+        public class EdgeNode
         {
             internal Route route;
             internal int v;
@@ -46,18 +46,18 @@ namespace MiniProject4_Airline_Networks
 
         public void AddEdge(Route route)
         {
-            var node = new EdgeNode(_airports[route.SOURCE_CODE], _vertices[_airports[route.DESTINATION_CODE]], route);
-            _vertices[_airports[route.DESTINATION_CODE]] = node;
+            var node = new EdgeNode(_airports[route.DESTINATION_CODE], _vertices[_airports[route.SOURCE_CODE]], route);
+            _vertices[_airports[route.SOURCE_CODE]] = node;
             E++;
         }
 
-        public IEnumerable<int> Adjacents(int v)
+        public IEnumerable<EdgeNode> Adjacents(int v)
         {
-            IList<int> adjacents = new List<int>();
+            IList<EdgeNode> adjacents = new List<EdgeNode>();
             var node = _vertices[v];
             while (node != null)
             {
-                adjacents.Add(node.v);
+                adjacents.Add(node);
                 node = node.next;
             }
 
@@ -67,28 +67,27 @@ namespace MiniProject4_Airline_Networks
         public override string ToString()
         {
             var text = "";
-            Dictionary<int, string> dict = new Dictionary<int, string>();
-            foreach (var item in _airports)
+            var dict = new Dictionary<int, string>();
+            foreach (var (key, value) in _airports)
             {
-                dict.Add(item.Value, item.Key);
+                dict.Add(value, key);
             }
 
-            for (var v = 0; v < V; v++)
+            for (var i = 0; i < V; i++)
             {
+                var source = dict[i];
                 var adjacents = "";
-                var vertex = _vertices[v];
-                EdgeNode vertexAdjacent;
+                var firstDestination = _vertices[i];
                 try
                 {
-                    if (vertex != null)
+                    if (firstDestination != null)
                     {
-                        foreach (var number in Adjacents(v))
+                        foreach (var destination in Adjacents(i))
                         {
-                            vertexAdjacent = _vertices[number];
-                            if (vertexAdjacent != null) adjacents += vertexAdjacent.route.DESTINATION_CODE + ", ";
+                            adjacents += dict[destination.v] + ", ";
                         }
 
-                        text += "" + vertex.route.SOURCE_CODE + ": " + adjacents + "\n";
+                        text += $"{i} {source} :  {adjacents} \n";
                     }
                 }
                 catch (Exception e)
@@ -108,8 +107,6 @@ namespace MiniProject4_Airline_Networks
         //     g.AddEdge(0, 2);
         //     g.AddEdge(2, 0);
         //     g.AddEdge(2, 3);
-        //     g.AddEdge(2, 4);
-        //     g.AddEdge(2, 4);
         //     g.AddEdge(2, 4);
         //     g.AddEdge(3, 4);
         //     g.AddEdge(3, 5);
