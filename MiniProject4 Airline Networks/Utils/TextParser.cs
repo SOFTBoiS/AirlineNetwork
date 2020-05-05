@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MiniProject4_Airline_Networks.Utils
 {
     public class TextParser
     {
+        public static List<string> airportsFromRoutes = new List<string>();
         public static string ReadText(string fileName, string path = @"..\..\..\Data\")
         {
             try
@@ -24,9 +26,11 @@ namespace MiniProject4_Airline_Networks.Utils
 
             var routes = new List<Route>();
 
-            for (int i = 1; i < rows.Length-1; i++)
+            for (int i = 1; i < rows.Length; i++)
             {
                 var row = rows[i].Split(";");
+                airportsFromRoutes.Add(row[1]);
+                airportsFromRoutes.Add(row[2]);
                 routes.Add(new Route(
                     row[0], 
                     row[1], 
@@ -51,6 +55,21 @@ namespace MiniProject4_Airline_Networks.Utils
             //     routes[i] = route;
             // }
             return routes;
+        }
+
+        public static Dictionary<String, int> ParseAirports(string text)
+        {
+            Dictionary<String, int> airports = new Dictionary<string,int>();
+            var rows = text.Split("\n");
+            
+            for (int i = 1; i < rows.Length; i++)
+            {
+                var row = rows[i].Split(";");
+                
+                airports.Add(row[0], i-1);
+            }
+            
+            return airports;
         }
     }
 

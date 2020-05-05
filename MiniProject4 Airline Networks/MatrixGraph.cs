@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MiniProject4_Airline_Networks.Utils;
 
 namespace MiniProject4_Airline_Networks
 {
@@ -19,7 +20,12 @@ namespace MiniProject4_Airline_Networks
             _edges[v,w] = true;
             E++;
         }
-        
+
+        public void AddEdge(Route route)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<int> Adjacents(int v) {
             IList<int> adjacents = new List<int>();
             for (var w = 0; w < V; w++)

@@ -8,20 +8,22 @@ namespace MiniProject4_Airline_Networks
     {
         static void Main(string[] args)
         {
-            var test = TextParser.ReadText("routes.txt");
-
-            var bla = TextParser.ParseRoutes(test);
-
-            foreach (var route in bla)
-            {
-                Console.WriteLine(route);
-            }
-
             // split string into list of Route objects
-            //
+            var routesText = TextParser.ReadText("routes.txt");
+            var routes = TextParser.ParseRoutes(routesText);
+
+
             // Make Graph based on routes
-            //
-            //
+            var airportText = TextParser.ReadText("airports.txt");
+            var airports = TextParser.ParseAirports(airportText);
+            IGraph graph = new AdjacencyGraph(routes.Count, airports);
+            
+            foreach (var route in routes)
+            {
+                graph.AddEdge(route);
+            }
+            
+            Console.WriteLine(graph);
             // Compare timings between BreadthFirstSearch and DepthFirstSearch 
             //
             //
