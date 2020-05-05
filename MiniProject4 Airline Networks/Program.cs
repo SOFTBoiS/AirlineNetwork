@@ -1,4 +1,6 @@
-﻿using MiniProject4_Airline_Networks.Utils;
+﻿using System;
+using System.Net.Mime;
+using MiniProject4_Airline_Networks.Utils;
 
 namespace MiniProject4_Airline_Networks
 {
@@ -6,7 +8,14 @@ namespace MiniProject4_Airline_Networks
     {
         static void Main(string[] args)
         {
-            var test = TextParser.GetAircrafts("aircrafts.txt");
+            var test = TextParser.ReadText("routes.txt");
+
+            var bla = TextParser.ParseRoutes(test);
+
+            foreach (var route in bla)
+            {
+                Console.WriteLine(route);
+            }
 
             // split string into list of Route objects
             //
