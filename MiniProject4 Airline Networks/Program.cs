@@ -14,23 +14,28 @@ namespace MiniProject4_Airline_Networks
 
 
             // Make Graph based on routes
-            IGraph graph = new AdjacencyGraph(TextParser.AirportsFromRoutes.Count, TextParser.MakeAirportDict());
+            // IGraph graph = new AdjacencyGraph(TextParser.AirportsFromRoutes.Count, TextParser.MakeAirportDict());
+            WeightedGraph graph = new WeightedGraph(TextParser.AirportsFromRoutes, true);
             
             // foreach (var route in routes)
             // {
             //     graph.AddEdge(route);
             // }
 
-            for (var i = 0; i < 30; i++)
+            for (var i = 0; i < routes.Count; i++)
             {
                 graph.AddEdge(routes[i]);
             }
+            // Console.WriteLine(graph);
             
-            Console.WriteLine(graph);
             // Compare timings between BreadthFirstSearch and DepthFirstSearch 
             //
             //
             // Use Dijkstra's algorithm to find shortestpath, both on Route's distance and time attributes
+            DijkstraShortestPath dsp = new DijkstraShortestPath(graph, "CPH");
+
+            dsp.Print();
+            //     dsp.print(System.out);
         }
     }
 }
